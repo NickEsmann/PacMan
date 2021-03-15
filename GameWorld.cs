@@ -32,8 +32,6 @@ namespace PacMan
         {
             // TODO: Add your initialization logic here
             map = new Map();
-            //worker = new Worker(1);
-           
             gameObjects = new List<GameObject>();
             
             base.Initialize();
@@ -59,18 +57,7 @@ namespace PacMan
 
             // TODO: Add your update logic here
 
-            foreach (var item in gameObjects)
-            {
-                item.CheckCollision(item);
-                foreach (var go in deleteObjects)
-                {
-                    gameObjects.Remove(go);
-                }
-            }
-           
-
-            ////Listen rydes.
-            //deleteObjects.Clear();
+            
 
             base.Update(gameTime);
         }
@@ -88,7 +75,6 @@ namespace PacMan
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(_spriteBatch);
-                DrawCollisionBox(go);
             }
 
             _spriteBatch.End();
