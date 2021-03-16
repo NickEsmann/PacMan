@@ -25,3 +25,21 @@
 /processorParam:TextureFormat=Color
 /build:Map/MGreen.png
 
+#begin Music/Pacman_Theme_Warping_Synth.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Pacman_Theme_Warping_Synth.mp3
+
+#begin Sound_Effects/Pacman_Sound_EatDot_High.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound_Effects/Pacman_Sound_EatDot_High.mp3
+
+#begin Sound_Effects/Pacman_Sound_EatDot_Low.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound_Effects/Pacman_Sound_EatDot_Low.mp3
+
