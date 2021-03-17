@@ -10,7 +10,7 @@ namespace PacMan
     class Wall : GameObject
     {
         private static List<Texture2D> sprites;
-        private float scale;
+        //private float scale;
 
         //And we need a Node to Connect the wall to;
 
@@ -25,7 +25,7 @@ namespace PacMan
         private void Base_Wall()
         {
             sprite = sprites[0];
-            scale = 0.5f;
+            scale = new Vector2(0.5f, 0.5f);
 
         }
 
@@ -54,19 +54,20 @@ namespace PacMan
 
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(sprite, position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 1);
-        }
+        //public override void Draw(SpriteBatch spriteBatch)
+        //{
+        //    spriteBatch.Draw(sprite, position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 1);
+        //}
 
         public override void OnCollision(GameObject other)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            
+
         }
     }
 }
