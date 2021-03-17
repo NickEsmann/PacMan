@@ -40,7 +40,10 @@ namespace PacMan
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+
+            Wall.LoadSprites(this.Content);
+
+
             foreach (GameObject go in gameObjects)
             {
                 go.LoadContent(this.Content);
