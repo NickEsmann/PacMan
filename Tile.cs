@@ -13,9 +13,11 @@ namespace PacMan
         private int x;
         private int y;
 
+
+
         public Tile(int x, int y, int tileSize)
         {
-            position = new Vector2(x * tileSize, y * tileSize);
+            Position = new Vector2(x * tileSize, y * tileSize);
             color = Color.White;
             scale = new Vector2(1, 1);
         }

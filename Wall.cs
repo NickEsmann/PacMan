@@ -9,11 +9,23 @@ namespace PacMan
 {
     class Wall : GameObject
     {
-        private static List<Texture2D> sprites;
+        private static Dictionary<string,Texture2D> sprites;
         //private float scale;
 
         //And we need a Node to Connect the wall to;
 
+        private float angle;
+
+        private enum Direction : int
+        {
+            Up = 1, Right = 2, Down = 3, Left = 4
+        }
+
+        private Dictionary<Direction, bool> checkNeighbors;
+        private List<int> neighbors;
+
+
+        private Tile BaseTile;
 
 
 
@@ -24,29 +36,211 @@ namespace PacMan
         /// 
         private void Base_Wall()
         {
-            sprite = sprites[0];
+            checkNeighbors = new Dictionary<Direction, bool>();
+            checkNeighbors.Add(Direction.Up, false);
+            checkNeighbors.Add(Direction.Right, false);
+            checkNeighbors.Add(Direction.Down, false);
+            checkNeighbors.Add(Direction.Left, false);
+
+            sprite = sprites["Alone"];
             scale = new Vector2(0.5f, 0.5f);
+            color = Color.White;
+            layer = 0;
+
+            angle = (float)Math.PI / 2.0f;  // 90 degrees
+
+            rotation = 0;
+
+            origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
+
+            offset = new Vector2(-(origin.X * scale.X)-1, -(origin.Y * scale.Y)-1);
+
+            Position = new Vector2(Position.X + offset.X, Position.Y + offset.Y);
+
+
 
         }
 
         public Wall(int x, int y, int tileSize)
         {
-            position = new Vector2(x * tileSize, y * tileSize);
+            Position = new Vector2(x * tileSize, y * tileSize);
             Base_Wall();
         }
         public Wall(int x, int y)
         {
-            position = new Vector2(x * 65, y * 65); // See Gridsize in Map 
+            Position = new Vector2(x * 65, y * 65); // See Gridsize in Map 
             Base_Wall();
         }
         public static void LoadSprites(ContentManager content)
         {
-            sprites = new List<Texture2D>();
+            sprites = new Dictionary<string, Texture2D>();
+            string name;
 
-
-            sprites.Add(content.Load<Texture2D>("Map/Walls/Wall0"));
+            { name = "Alone"; sprites.Add(name, content.Load<Texture2D>("Map/Walls/"+name)); }
+            { name = "1Con"; sprites.Add(name, content.Load<Texture2D>("Map/Walls/" + name)); }
+            { name = "2ConL"; sprites.Add(name, content.Load<Texture2D>("Map/Walls/" + name)); }
+            { name = "2ConC"; sprites.Add(name, content.Load<Texture2D>("Map/Walls/" + name)); }
+            { name = "3Con"; sprites.Add(name, content.Load<Texture2D>("Map/Walls/" + name)); }
+            { name = "4Con"; sprites.Add(name, content.Load<Texture2D>("Map/Walls/" + name)); }
 
         }
+
+
+        public void SetBaseTile(Tile tile)
+        {
+            BaseTile = tile;
+
+        }
+
+        private void FindNeighbors(List<Wall> wallList)
+        {
+            Point Center = Collision.Center;
+
+            Point testPointUp = new Point(Center.X, Center.Y-Collision.Height);
+            Point testPointRight = new Point(Center.X+Collision.Width, Center.Y);
+            Point testPointDown = new Point(Center.X, Center.Y + Collision.Height);
+            Point testPointLeft = new Point(Center.X - Collision.Width, Center.Y);
+
+            foreach(Wall w in wallList)
+            {
+                if(w.Collision.Contains(testPointUp))
+                {
+                    checkNeighbors[Direction.Up] = true;
+                }
+                else if (w.Collision.Contains(testPointRight))
+                {
+                    checkNeighbors[Direction.Right] = true;
+                }
+                else if (w.Collision.Contains(testPointDown))
+                {
+                    checkNeighbors[Direction.Down] = true;
+                }
+                else if (w.Collision.Contains(testPointLeft))
+                {
+                    checkNeighbors[Direction.Left] = true;
+                }
+
+            }
+
+
+
+
+
+
+        }
+
+        private int FindNoNeighborSide()
+        {
+            List<int> temp = new List<int>() { 1, 2, 3, 4 };
+            foreach (int i in neighbors)
+            {
+                temp.Remove(i);
+            }
+            int last = temp[0];
+            
+            if (last==4)
+            {
+                return 0;
+            }
+            else
+            {
+                return last;
+            }
+
+
+
+
+        }
+
+        private void AdvancedLogic()
+        {
+            int count = neighbors.Count;
+
+            if (count == 0)
+            {
+                sprite = sprites["Alone"];
+            }
+                
+            else if (count == 1)
+            {
+                rotation = angle * (neighbors[0] - 1);
+                sprite = sprites["1Con"];
+
+            }
+                
+            
+            else if (count == 2)
+            {
+                if(neighbors[0]+1==neighbors[1] || (neighbors[0]==1 && neighbors[1]==4))
+                {
+                    if(!(neighbors[1]==4 && neighbors[0]==1))
+                    {
+                        rotation = angle * (neighbors[0]-1);
+                    }
+                    else
+                    {
+                        rotation = angle * 3;
+                    }
+                    sprite = sprites["2ConC"];
+
+                }
+                else
+                {
+                    if(neighbors[0]==2)
+                    {
+                        rotation = angle;
+                    }
+                    sprite = sprites["2ConL"];
+                }
+
+
+            }
+                
+            else if (count == 3)
+            {
+                rotation = angle * FindNoNeighborSide();
+                sprite = sprites["3Con"];
+            }
+                
+
+
+            else if (count == 4)
+                sprite = sprites["4Con"];
+        }
+
+        public void AdvancedSprites(List<Wall> wallList)
+        {
+            FindNeighbors(wallList);
+            RelistNeighbors();
+            AdvancedLogic();
+
+            
+
+
+
+
+
+        }
+
+
+        private void RelistNeighbors()
+        {
+            neighbors = new List<int>();
+            //int count = 0;
+
+            
+            for (int i=1; i<5; i++)
+            {
+                Direction dir = (Direction)Enum.Parse(typeof(Direction), Convert.ToString(i));
+                if(checkNeighbors[dir]==true)
+                {
+                    neighbors.Add(i);
+                }
+
+            }
+        }
+
+
 
         public override void LoadContent(ContentManager content)
         {
@@ -66,7 +260,7 @@ namespace PacMan
 
         public override void Update(GameTime gameTime)
         {
-            
+
 
         }
     }

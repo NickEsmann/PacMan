@@ -11,12 +11,12 @@ namespace PacMan
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Map map;
+        public static Map map;
 
         private static List<GameObject> gameObjects;
         public static List<GameObject> deleteObjects;
-      
-       
+
+        public static List<GameObject> GameObjects { get => gameObjects; private set => gameObjects = value; }
 
         public GameWorld()
         {
@@ -30,10 +30,13 @@ namespace PacMan
 
         protected override void Initialize()
         {
+            Wall.LoadSprites(this.Content);
             // TODO: Add your initialization logic here
             map = new Map();
-            gameObjects = new List<GameObject>();
+            GameObjects = new List<GameObject>();
             
+
+
             base.Initialize();
         }
 
@@ -41,10 +44,10 @@ namespace PacMan
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Wall.LoadSprites(this.Content);
+            
 
 
-            foreach (GameObject go in gameObjects)
+            foreach (GameObject go in GameObjects)
             {
                 go.LoadContent(this.Content);
             }
@@ -60,6 +63,8 @@ namespace PacMan
 
             // TODO: Add your update logic here
 
+
+
             
 
             base.Update(gameTime);
@@ -68,6 +73,9 @@ namespace PacMan
         private void DrawCollisionBox(GameObject go)
         {
 
+
+
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -75,7 +83,7 @@ namespace PacMan
             GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             map.Draw(_spriteBatch);
-            foreach (GameObject go in gameObjects)
+            foreach (GameObject go in GameObjects)
             {
                 go.Draw(_spriteBatch);
             }

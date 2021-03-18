@@ -10,13 +10,18 @@ namespace PacMan
     public abstract class GameObject
     {
         protected Texture2D sprite;
-        protected Vector2 position;
+        private Vector2 position;
         protected Color color;
         protected Vector2 origin;
         protected Vector2 scale;
-        protected float rotation;
-        protected int offsetX;
-        protected int offsetY;
+        protected float rotation=0f;
+        //protected int offsetX;
+        //protected int offsetY;
+        protected Vector2 offset;
+        
+        protected int layer = 1;
+
+
 
         public GameObject()
         {
@@ -27,13 +32,15 @@ namespace PacMan
             get
             {
                 return new Rectangle(
-                       (int)position.X + offsetX,
-                       (int)position.Y,
+                       (int)Position.X + (int)offset.X,
+                       (int)Position.Y,
                        (int)sprite.Width,
-                       (int)sprite.Height + offsetY
+                       (int)sprite.Height +(int) offset.Y
                    );
             }
         }
+
+        public Vector2 Position { get => position; protected set => position = value; }
 
         public abstract void LoadContent(ContentManager content);
 
@@ -41,7 +48,7 @@ namespace PacMan
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 1);
+            spriteBatch.Draw(sprite, Position, null, color, rotation, origin, scale, SpriteEffects.None, layer);
         }
 
         public abstract void OnCollision(GameObject other);
