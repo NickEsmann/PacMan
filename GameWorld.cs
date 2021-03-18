@@ -41,7 +41,7 @@ namespace PacMan
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Wall.LoadSprites(this.Content);
+            //Wall.LoadSprites(this.Content);
 
 
             foreach (GameObject go in gameObjects)

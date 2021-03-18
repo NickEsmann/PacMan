@@ -10,28 +10,30 @@ namespace PacMan
     public abstract class GameObject
     {
         protected Texture2D sprite;
+        protected Texture2D[] sprites;
+        private int newSprite = 35;
+        private int currentIndex = 0;
         protected Vector2 position;
-        protected Color color;
+        protected Vector2 offset;
         protected Vector2 origin;
         protected Vector2 scale;
-        protected float rotation;
-        protected int offsetX;
-        protected int offsetY;
-
+        protected Color color;
+        
         public GameObject()
         {
         }
 
-        public virtual Rectangle Collision
+        public Rectangle CollisionBox
         {
             get
             {
                 return new Rectangle(
-                       (int)position.X + offsetX,
-                       (int)position.Y,
-                       (int)sprite.Width,
-                       (int)sprite.Height + offsetY
-                   );
+                    (int)(position.X + offset.X),
+                    (int)(position.Y + offset.Y),
+                    sprite.Width,
+                    sprite.Height
+                    );
+
             }
         }
 
@@ -48,10 +50,10 @@ namespace PacMan
 
         public void CheckCollision(GameObject other)
         {
-            if (Collision.Intersects(other.Collision))
-            {
-                OnCollision(other);
-            }
+            //if (Collision.Intersects(other.Collision))
+            //{
+            //    OnCollision(other);
+            //}
         }
     }
 }

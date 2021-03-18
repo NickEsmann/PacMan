@@ -12,11 +12,16 @@ namespace PacMan
         private int row = 20;
         private int col = 16;
         private int gridSize = 65;
-        private List<GameObject> grid;
+        private List<GameObject> grid; //the list we create for our sprites
+        private List<Vector2> enemyGridPos; //list of vectors that has positions of where the sprite for the enemy road needs to be
+        public List<Vector2> EnemyPath { get; set; } = new List<Vector2>(); //This is the list of how the enemy should move
+
+
 
         public Map()
         {
             grid = new List<GameObject>();
+            enemyGridPos = new List<Vector2>();
             mapMaker();
         }
 
@@ -24,7 +29,7 @@ namespace PacMan
         {
             foreach (GameObject go in grid)
             {
-                go.LoadContent(content);
+                go.LoadContent(content); //here we load our sprites in the grid
             }
         }
 
@@ -32,17 +37,28 @@ namespace PacMan
         {
             foreach (GameObject go in grid)
             {
-                go.Draw(spriteBatch);
+                go.Draw(spriteBatch); //here we draw our sprites in the grid
             }
         }
 
         private void mapMaker()
         {
+            enemyGridPos.Add(new Vector2(1, 1));
+            
+
             for (int x = 0; x < row; x++)
             {
                 for (int y = 0; y < col; y++)
                 {
-                    grid.Add(new Tile(x, y, gridSize));
+                    if (enemyGridPos.Exists(t => t.X == x && t.Y == y)) //if the position we get from the 2 forloops exist in the list of position then it returns true, otherwise it returns false
+                    {
+
+                        grid.Add(new Tile("Tile2", x, y, gridSize)); //places the brown sprite
+                    }
+                    else
+                    {
+                        grid.Add(new Tile("Tile1", x, y, gridSize)); //place the green sprite
+                    }
                 }
             }
         }
