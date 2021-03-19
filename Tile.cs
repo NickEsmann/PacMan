@@ -22,7 +22,7 @@ namespace PacMan
 
         public override void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>("Map/MGreen");
+            //sprite = content.Load<Texture2D>("Map/MGreen");
         }
 
         public override void OnCollision(GameObject other)

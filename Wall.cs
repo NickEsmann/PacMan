@@ -44,7 +44,7 @@ namespace PacMan
             sprites = new List<Texture2D>();
 
 
-            sprites.Add(content.Load<Texture2D>("Map/Walls/Wall0"));
+            //sprites.Add(content.Load<Texture2D>("Map/Walls/Wall0"));
 
         }
 
