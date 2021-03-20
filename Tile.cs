@@ -12,6 +12,25 @@ namespace PacMan
     {
         private int x;
         private int y;
+        private GameObject connectedObject;
+        public bool isWalkable
+        {
+            get
+            {
+                if(connectedObject!=null)
+                {
+                    if (connectedObject is Wall)
+                        return false;
+                    else
+                        return true;
+
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
 
 
 
@@ -34,5 +53,13 @@ namespace PacMan
         public override void Update(GameTime gameTime)
         {
         }
+
+
+        public void SetConnectedObject(GameObject go)
+        {
+
+            connectedObject = go;
+        }
+
     }
 }

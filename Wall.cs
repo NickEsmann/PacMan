@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace PacMan
 {
-    class Wall : GameObject
+    public class Wall : GameObject
     {
         private static Dictionary<string,Texture2D> sprites;
         //private float scale;
@@ -57,6 +58,7 @@ namespace PacMan
 
             Position = new Vector2(Position.X + offset.X, Position.Y + offset.Y);
 
+            ConnectToTile();
 
 
         }
@@ -85,11 +87,23 @@ namespace PacMan
 
         }
 
+        private void ConnectToTile()
+        {
+            foreach (GameObject go in GameWorld.map.Grid)
+            {
+                if (Collision.Contains(go.Position) && go is Tile)
+                {
+                    //Debug.WriteLine("Connected");
+                    SetBaseTile((Tile)go);
+                }
+            }
 
-        public void SetBaseTile(Tile tile)
+        }
+
+        private void SetBaseTile(Tile tile)
         {
             BaseTile = tile;
-
+            tile.SetConnectedObject(this);
         }
 
         private void FindNeighbors(List<Wall> wallList)

@@ -12,6 +12,10 @@ namespace PacMan
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         public static Map map;
+        public static Level currentLevel;
+        private List<Level> levels;
+
+
 
         private static List<GameObject> gameObjects;
         public static List<GameObject> deleteObjects;
@@ -34,7 +38,16 @@ namespace PacMan
             // TODO: Add your initialization logic here
             map = new Map();
             GameObjects = new List<GameObject>();
-            
+
+            GenerateLevels();
+            currentLevel = levels[0];
+
+            foreach(Wall w in currentLevel.Walls)
+            {
+                GameObjects.Add(w);
+            }
+
+
 
 
             base.Initialize();
@@ -88,6 +101,7 @@ namespace PacMan
                 go.Draw(_spriteBatch);
             }
 
+
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -98,6 +112,20 @@ namespace PacMan
         {
             deleteObjects.Add(go);
         }
+
+        private void GenerateLevels()
+        {
+            levels = new List<Level>()
+            {
+                new Level()
+            };
+            
+            
+            
+
+
+        }
+
 
     }
 }
