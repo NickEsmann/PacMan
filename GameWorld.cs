@@ -117,7 +117,29 @@ namespace PacMan
         {
             levels = new List<Level>()
             {
-                new Level()
+                new Level(new List<Wall>()
+                {
+                    new Wall(0,0),
+                    new Wall(0,19),
+                    new Wall(7,7),
+                    new Wall(7,8),
+                    new Wall(7,9),
+                    new Wall(8,6),
+                    new Wall(8,10),
+                    new Wall(9,6),
+                    new Wall(9,11),
+                    new Wall(10,7),
+                    new Wall(10,12),
+                    new Wall(11,6),
+                    new Wall(11,11),
+                    new Wall(12,6),
+                    new Wall(12,10),
+                    new Wall(13,7),
+                    new Wall(13,8),
+                    new Wall(13,9),
+                    new Wall(19,0),
+                    new Wall(19,19)
+                })
             };
             
             
