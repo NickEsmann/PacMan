@@ -29,6 +29,46 @@ namespace PacMan
         private Tile BaseTile;
 
 
+        
+
+
+        //FOR DEBUGGING
+        private static int counter = 1;
+        private int wallNum;
+        private string basePosition;
+        private static SpriteFont font;
+        private Color textColor;
+        public Point baseCoordinates;
+
+        public override Rectangle Collision
+        {
+            get
+            {
+                return new Rectangle(
+                       (int)Position.X+(int)offset.X,
+                       (int)Position.Y+(int)offset.Y,
+                       (int)(sprite.Width*scale.X),
+                       (int)(sprite.Height*scale.Y)
+                   );
+            }
+        }
+
+
+
+
+
+        private void ForDebugging()
+        {
+            
+            wallNum = counter;
+            counter += 1;
+            textColor = Color.White;
+
+            basePosition = $"{baseCoordinates.X},{baseCoordinates.Y}";
+
+
+        }
+
 
         /// <summary>
         /// This is so you only have to load wall sprites once
@@ -37,6 +77,11 @@ namespace PacMan
         /// 
         private void Base_Wall()
         {
+
+            ForDebugging();
+
+
+
             checkNeighbors = new Dictionary<Direction, bool>();
             checkNeighbors.Add(Direction.Up, false);
             checkNeighbors.Add(Direction.Right, false);
@@ -54,7 +99,7 @@ namespace PacMan
 
             origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
 
-            offset = new Vector2(-(origin.X * scale.X)-1, -(origin.Y * scale.Y)-1);
+            offset = new Vector2((-origin.X * scale.X)-1, (-origin.Y * scale.Y)-1);
 
             Position = new Vector2(Position.X + offset.X, Position.Y + offset.Y);
 
@@ -70,6 +115,7 @@ namespace PacMan
         }
         public Wall(int x, int y)
         {
+            //baseCoordinates = new Point(x, y);
             Position = new Vector2(x * 65, y * 65); // See Gridsize in Map 
             Base_Wall();
         }
@@ -84,6 +130,9 @@ namespace PacMan
             { name = "2ConC"; sprites.Add(name, content.Load<Texture2D>("Map/Walls/" + name)); }
             { name = "3Con"; sprites.Add(name, content.Load<Texture2D>("Map/Walls/" + name)); }
             { name = "4Con"; sprites.Add(name, content.Load<Texture2D>("Map/Walls/" + name)); }
+
+            font = content.Load<SpriteFont>("Font");
+
 
         }
 
@@ -255,6 +304,14 @@ namespace PacMan
         }
 
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            //spriteBatch.DrawString(font, (neighbors.Count).ToString(), Position, textColor);
+            //spriteBatch.DrawString(font, wallNum.ToString(), Position, textColor);
+            //spriteBatch.DrawString(font, wallNum.ToString(), Collision.Center.ToVector2(), textColor);
+            //spriteBatch.DrawString(font, basePosition, Position+new Vector2(0,font.LineSpacing), textColor);
+        }
 
         public override void LoadContent(ContentManager content)
         {

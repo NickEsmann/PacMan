@@ -14,8 +14,8 @@ namespace LevelCreator
 
         private static List<Button> buttons;
 
-        private int gridX = 20;
-        private int gridY = 20;
+        private int gridX = 19;
+        private int gridY = 19;
 
         public static int GridSize { get => gridSize; private set => gridSize = value; }
         internal static List<Button> Buttons { get => buttons; private set => buttons = value; }

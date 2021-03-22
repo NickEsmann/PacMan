@@ -9,8 +9,8 @@ namespace PacMan
 {
     public class Map
     {
-        private int row = 20;
-        private int col = 16;
+        private int row = 19; //20
+        private int col = 19; //16
         private int gridSize = 65;
         private List<GameObject> grid;
 
