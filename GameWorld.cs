@@ -15,6 +15,8 @@ namespace PacMan
         public static Level currentLevel;
         private List<Level> levels;
 
+        public PointSystem pointsystem;
+
 
 
         private static List<GameObject> gameObjects;
