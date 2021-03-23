@@ -8,26 +8,60 @@ namespace PacMan
     {
         private List<Wall> walls;
 
-        public delegate void DrawWallsDelagate();
-        public DrawWallsDelagate DrawCode = () => { };
+        //public delegate void DrawWallsDelagate();
+        //public DrawWallsDelagate DrawCode = () => { };
+
+        private List<GameObject> levelObjects;
+
+        private GhostSpawn levelGhostSpawn;
 
         internal List<Wall> Walls { get => walls; private set => walls = value; }
+        public List<GameObject> LevelObjects { get => levelObjects; private set => levelObjects = value; }
+        internal GhostSpawn LevelGhostSpawn { get => levelGhostSpawn; private set => levelGhostSpawn = value; }
 
-        public Level (List<Wall> walls)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="walls"></param>
+        /// <param name="x">X placement of topLeft of Ghost spawn</param>
+        /// <param name="y">Y Placement of top Left of Ghost spawn</param>
+        public Level (List<Wall> walls,int x, int y)
         {
             Walls = walls;
             UpdateWalls();
+
+
+            levelGhostSpawn = new GhostSpawn(x, y);
+
+            AddToList();
+
         }
-        public Level(DrawWallsDelagate drawCode)
+
+        private void AddToList()
         {
-           // Walls = drawCode;
+            LevelObjects = new List<GameObject>();
+            foreach (Wall w in Walls)
+                LevelObjects.Add(w);
+            LevelObjects.Add(LevelGhostSpawn);
+            foreach(Ghost g in LevelGhostSpawn.Ghosts)
+            {
+                LevelObjects.Add(g);
+            }
+
+        }
+
+
+
+        //public Level(DrawWallsDelagate drawCode)
+        //{
+        //   // Walls = drawCode;
   
             
 
-            UpdateWalls();
+        //    UpdateWalls();
             
 
-        }
+        //}
         public Level()
         {
             // Walls = drawCode;
@@ -107,10 +141,10 @@ namespace PacMan
         //    }
         //}
 
-        public static Dictionary<string, List<Wall>> LevelArchive = new Dictionary<string, List<Wall>>();
-        public static void CreateLevelArchive()
+        public static Dictionary<string, List<Wall>> MazeArchive = new Dictionary<string, List<Wall>>();
+        public static void CreateMazeArchive()
         {
-            LevelArchive.Add("Heart", new List<Wall>() 
+            MazeArchive.Add("Heart", new List<Wall>() 
             {
                 new Wall(0,0),
                 new Wall(0,19),
@@ -134,7 +168,7 @@ namespace PacMan
                 new Wall(19,19)
             });
 
-            LevelArchive.Add("PacManLevel1from0x0", new List<Wall>()
+            MazeArchive.Add("PacManLevel1from0x0", new List<Wall>()
             {
                 new Wall(0,0),
                     new Wall(0,1),
@@ -317,7 +351,7 @@ namespace PacMan
                     new Wall(18,18)
             });
 
-            LevelArchive.Add("PacManLevel1from1x1", new List<Wall>()
+            MazeArchive.Add("PacManLevel1from1x1", new List<Wall>()
             {
                 new Wall(1,1),
                     new Wall(1,2),
@@ -499,7 +533,7 @@ namespace PacMan
                     new Wall(19,18),
                     new Wall(19,19)
             });
-            LevelArchive.Add("2", new List<Wall>()
+            MazeArchive.Add("2", new List<Wall>()
             {
 
             });

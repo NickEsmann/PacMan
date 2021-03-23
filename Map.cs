@@ -11,15 +11,18 @@ namespace PacMan
     {
         private int row = 19; //20
         private int col = 19; //16
-        private int gridSize = 65;
+        private static int gridSize = 32;//65
         private List<GameObject> grid;
-
+        private Dictionary<Point, Tile> gridDictionary;
 
         public List<GameObject> Grid { get => grid; set => grid = value; }
+        public static int GridSize { get => gridSize; private set => gridSize = value; }
+        internal Dictionary<Point, Tile> GridDictionary { get => gridDictionary; private set => gridDictionary = value; }
 
         public Map()
         {
             Grid = new List<GameObject>();
+            GridDictionary = new Dictionary<Point, Tile>();
             
             mapMaker();
         }
@@ -46,7 +49,9 @@ namespace PacMan
             {
                 for (int y = 0; y < col; y++)
                 {
-                    Grid.Add(new Tile(x, y, gridSize));
+                    Tile tile = new Tile(x, y, GridSize);
+                    Grid.Add(tile);
+                    GridDictionary.Add(new Point(x, y), tile);
                 }
             }
             

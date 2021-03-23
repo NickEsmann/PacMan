@@ -89,7 +89,7 @@ namespace PacMan
             checkNeighbors.Add(Direction.Left, false);
 
             sprite = sprites["Alone"];
-            scale = new Vector2(0.5f, 0.5f);
+            //scale = new Vector2(0.5f, 0.5f);
             color = Color.White;
             layer = 0;
 
@@ -116,7 +116,7 @@ namespace PacMan
         public Wall(int x, int y)
         {
             //baseCoordinates = new Point(x, y);
-            Position = new Vector2(x * 65, y * 65); // See Gridsize in Map 
+            Position = new Vector2(x * Map.GridSize, y * Map.GridSize); // See Gridsize in Map 
             Base_Wall();
         }
         public static void LoadSprites(ContentManager content)

@@ -38,7 +38,10 @@ namespace PacMan
 
         protected override void Initialize()
         {
+            GhostSpawn.StaticLoadContent(this.Content);
             Wall.LoadSprites(this.Content);
+            Ghost.StaticLoadContent(this.Content);
+            Tile.StaticLoadContent(this.Content);
             // TODO: Add your initialization logic here
             map = new Map();
             GameObjects = new List<GameObject>();
@@ -46,13 +49,15 @@ namespace PacMan
             GenerateLevels();
             currentLevel = levels[0];
 
-            foreach(Wall w in currentLevel.Walls)
+            foreach(GameObject go in currentLevel.LevelObjects)
             {
-                GameObjects.Add(w);
+                GameObjects.Add(go);
             }
 
-
-
+            //GameObjects.Add(new Ghost("Blinky", 7, 8));
+            //GameObjects.Add(new Ghost("Pinky", 8, 8));
+            //GameObjects.Add(new Ghost("Inky", 10, 8));
+            //GameObjects.Add(new Ghost("Clyde", 11, 8));
 
             base.Initialize();
         }
@@ -82,7 +87,10 @@ namespace PacMan
                 Exit();
 
             // TODO: Add your update logic here
-
+            foreach(GameObject go in GameObjects)
+            {
+                go.Update(gameTime);
+            }
 
 
             
@@ -134,191 +142,10 @@ namespace PacMan
 
         private void GenerateLevels()
         {
-            Level.CreateLevelArchive();
+            Level.CreateMazeArchive();
             levels = new List<Level>()
             {
-                new Level(new List<Wall>()
-                {
-                    new Wall(1,1),
-                    new Wall(1,2),
-                    new Wall(1,3),
-                    new Wall(1,4),
-                    new Wall(1,5),
-                    new Wall(1,6),
-                    new Wall(1,7),
-                    new Wall(1,8),
-                    new Wall(1,10),
-                    new Wall(1,11),
-                    new Wall(1,12),
-                    new Wall(1,13),
-                    new Wall(1,14),
-                    new Wall(1,15),
-                    new Wall(1,16),
-                    new Wall(1,17),
-                    new Wall(1,18),
-                    new Wall(1,19),
-                    new Wall(2,1),
-                    new Wall(2,7),
-                    new Wall(2,8),
-                    new Wall(2,10),
-                    new Wall(2,11),
-                    new Wall(2,15),
-                    new Wall(2,19),
-                    new Wall(3,1),
-                    new Wall(3,3),
-                    new Wall(3,5),
-                    new Wall(3,7),
-                    new Wall(3,8),
-                    new Wall(3,10),
-                    new Wall(3,11),
-                    new Wall(3,13),
-                    new Wall(3,17),
-                    new Wall(3,19),
-                    new Wall(4,1),
-                    new Wall(4,3),
-                    new Wall(4,5),
-                    new Wall(4,7),
-                    new Wall(4,8),
-                    new Wall(4,10),
-                    new Wall(4,11),
-                    new Wall(4,13),
-                    new Wall(4,14),
-                    new Wall(4,15),
-                    new Wall(4,17),
-                    new Wall(4,19),
-                    new Wall(5,1),
-                    new Wall(5,17),
-                    new Wall(5,19),
-                    new Wall(6,1),
-                    new Wall(6,3),
-                    new Wall(6,5),
-                    new Wall(6,6),
-                    new Wall(6,7),
-                    new Wall(6,8),
-                    new Wall(6,10),
-                    new Wall(6,11),
-                    new Wall(6,13),
-                    new Wall(6,15),
-                    new Wall(6,16),
-                    new Wall(6,17),
-                    new Wall(6,19),
-                    new Wall(7,1),
-                    new Wall(7,3),
-                    new Wall(7,7),
-                    new Wall(7,13),
-                    new Wall(7,17),
-                    new Wall(7,19),
-                    new Wall(8,1),
-                    new Wall(8,3),
-                    new Wall(8,5),
-                    new Wall(8,7),
-                    new Wall(8,11),
-                    new Wall(8,13),
-                    new Wall(8,15),
-                    new Wall(8,17),
-                    new Wall(8,19),
-                    new Wall(9,1),
-                    new Wall(9,5),
-                    new Wall(9,11),
-                    new Wall(9,15),
-                    new Wall(9,19),
-                    new Wall(10,1),
-                    new Wall(10,2),
-                    new Wall(10,3),
-                    new Wall(10,5),
-                    new Wall(10,6),
-                    new Wall(10,7),
-                    new Wall(10,11),
-                    new Wall(10,12),
-                    new Wall(10,13),
-                    new Wall(10,15),
-                    new Wall(10,16),
-                    new Wall(10,17),
-                    new Wall(10,19),
-                    new Wall(11,1),
-                    new Wall(11,5),
-                    new Wall(11,11),
-                    new Wall(11,15),
-                    new Wall(11,19),
-                    new Wall(12,1),
-                    new Wall(12,3),
-                    new Wall(12,5),
-                    new Wall(12,7),
-                    new Wall(12,11),
-                    new Wall(12,13),
-                    new Wall(12,15),
-                    new Wall(12,17),
-                    new Wall(12,19),
-                    new Wall(13,1),
-                    new Wall(13,3),
-                    new Wall(13,7),
-                    new Wall(13,13),
-                    new Wall(13,17),
-                    new Wall(13,19),
-                    new Wall(14,1),
-                    new Wall(14,3),
-                    new Wall(14,5),
-                    new Wall(14,6),
-                    new Wall(14,7),
-                    new Wall(14,8),
-                    new Wall(14,10),
-                    new Wall(14,11),
-                    new Wall(14,13),
-                    new Wall(14,15),
-                    new Wall(14,16),
-                    new Wall(14,17),
-                    new Wall(14,19),
-                    new Wall(15,1),
-                    new Wall(15,17),
-                    new Wall(15,19),
-                    new Wall(16,1),
-                    new Wall(16,3),
-                    new Wall(16,5),
-                    new Wall(16,7),
-                    new Wall(16,8),
-                    new Wall(16,10),
-                    new Wall(16,11),
-                    new Wall(16,13),
-                    new Wall(16,14),
-                    new Wall(16,15),
-                    new Wall(16,17),
-                    new Wall(16,19),
-                    new Wall(17,1),
-                    new Wall(17,3),
-                    new Wall(17,5),
-                    new Wall(17,7),
-                    new Wall(17,8),
-                    new Wall(17,10),
-                    new Wall(17,11),
-                    new Wall(17,13),
-                    new Wall(17,17),
-                    new Wall(17,19),
-                    new Wall(18,1),
-                    new Wall(18,7),
-                    new Wall(18,8),
-                    new Wall(18,10),
-                    new Wall(18,11),
-                    new Wall(18,15),
-                    new Wall(18,19),
-                    new Wall(19,1),
-                    new Wall(19,2),
-                    new Wall(19,3),
-                    new Wall(19,4),
-                    new Wall(19,5),
-                    new Wall(19,6),
-                    new Wall(19,7),
-                    new Wall(19,8),
-                    new Wall(19,10),
-                    new Wall(19,11),
-                    new Wall(19,12),
-                    new Wall(19,13),
-                    new Wall(19,14),
-                    new Wall(19,15),
-                    new Wall(19,16),
-                    new Wall(19,17),
-                    new Wall(19,18),
-                    new Wall(19,19)
-                })
+                new Level(Level.MazeArchive["PacManLevel1from1x1"],7,8)
                 
             };
             
