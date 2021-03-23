@@ -10,32 +10,57 @@ namespace PacMan
     public abstract class GameObject
     {
         protected Texture2D sprite;
-        protected Texture2D[] sprites;
-        private int newSprite = 35;
-        private int currentIndex = 0;
-        protected Vector2 position;
-        protected Vector2 offset;
-        protected Vector2 origin;
-        protected Vector2 scale;
+        private Vector2 position;
         protected Color color;
-        
+        protected Vector2 origin;
+        protected Vector2 scale = new Vector2((float)Map.GridSize / 128, (float)Map.GridSize / 128);
+        protected float rotation = 0f;
+
+        public bool NeedPath = false;
+        public List<Tile> Path;
+
+        //protected int offsetX;
+        //protected int offsetY;
+        protected Vector2 offset;
+        public int X { get; set; }
+        public int Y { get; set; }
+
+        protected int layer = 1;
+
+
+
         public GameObject()
         {
         }
 
-        public Rectangle CollisionBox
+        //public virtual Rectangle Collision
+        //{
+        //    get
+        //    {
+        //        return new Rectangle(
+        //               (int)Position.X + (int)offset.X,
+        //               (int)Position.Y,
+        //               (int)sprite.Width,
+        //               (int)sprite.Height +(int) offset.Y
+        //           );
+        //    }
+        //}
+        public virtual Rectangle Collision
         {
             get
             {
                 return new Rectangle(
-                    (int)(position.X + offset.X),
-                    (int)(position.Y + offset.Y),
-                    sprite.Width,
-                    sprite.Height
-                    );
-
+                       (int)Position.X + (int)offset.X,
+                       (int)Position.Y + (int)offset.Y,
+                       (int)(sprite.Width * scale.X),
+                       (int)(sprite.Height * scale.Y)
+                   );
             }
         }
+        public Vector2 Position { get => position; protected set => position = value; }
+
+
+
 
         public abstract void LoadContent(ContentManager content);
 
@@ -43,17 +68,17 @@ namespace PacMan
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 1);
+            spriteBatch.Draw(sprite, Position, null, color, rotation, origin, scale, SpriteEffects.None, layer);
         }
 
         public abstract void OnCollision(GameObject other);
 
         public void CheckCollision(GameObject other)
         {
-            //if (Collision.Intersects(other.Collision))
-            //{
-            //    OnCollision(other);
-            //}
+            if (Collision.Intersects(other.Collision))
+            {
+                OnCollision(other);
+            }
         }
     }
 }

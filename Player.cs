@@ -10,6 +10,8 @@ namespace PacMan
 {
     class Player : GameObject
     {
+        private Vector2 velocity;
+
         public Player()
         {
             speed = 150;
@@ -26,6 +28,11 @@ namespace PacMan
 
             Animate(gametime);
 
+        }
+
+        private void Animate(GameTime gametime)
+        {
+            throw new NotImplementedException();
         }
 
         public void HandleInput()
@@ -74,5 +81,12 @@ namespace PacMan
             this.origin = new Vector2(sprite.Height / 2, sprite.Width / 2);
 
 
+
+        }
+
+        public override void OnCollision(GameObject other)
+        {
+            throw new NotImplementedException();
         }
     }
+}    

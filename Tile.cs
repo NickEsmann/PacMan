@@ -8,34 +8,101 @@ using Microsoft.Xna.Framework.Input;
 
 namespace PacMan
 {
-    class Tile : GameObject
+    public class Tile : GameObject
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        private string spriteName;
 
-        public Tile(string name, int x, int y, int size)
+        private GameObject connectedObject;
+        public Tile Parent { get; private set; }
+
+        private static Texture2D tileSprite;
+        public bool isWalkable
         {
-            spriteName = name;
+            get
+            {
+                if (connectedObject != null)
+                {
+                    if (connectedObject is Wall)
+                        return false;
+                    else
+                        return true;
+
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+
+
+
+        public Tile(int x, int y, int tileSize)
+        {
             this.X = x;
             this.Y = y;
-            position = new Vector2(x * size, y * size); //the position of the sprite uses the variables in the construtors parentese and therefore we kinda choice where we place the sprite when we make a instans of this class
-            color = Color.White;
+            Position = new Vector2((this.X * tileSize) - 1, (this.Y * tileSize) - 1);
+            color = Color.Black;
+            sprite = tileSprite;
+
+
+            //scale = new Vector2(1, 1);
+            //scale = new Vector2(0.5f, 0.5f);
+
+        }
+
+        public int F
+        {
+            get
+            {
+                return G + H;
+            }
+        }
+        public int G { get; set; }
+        public int H { get; set; }
+
+        public int Distance(Tile point)
+        {
+            return (int)Math.Sqrt(Math.Pow((point.X - X), 2) + Math.Pow((point.Y - Y), 2));
+        }
+        public static void StaticLoadContent(ContentManager content)
+        {
+            tileSprite = content.Load<Texture2D>("Map/BlankTile");
         }
 
         public override void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>("Map/" + spriteName); //here we load our sprite and we use the string we define when we make a instans of this tile class
+            //sprite = content.Load<Texture2D>("Map/MGreen");//
+
         }
 
-        public override void Update(GameTime gameTime)
+        public void ChangeColor(Color color)
         {
-
+            base.color = color;
         }
 
         public override void OnCollision(GameObject other)
         {
+        }
 
+        public override void Update(GameTime gameTime)
+        {
+        }
+
+
+        public void SetConnectedObject(GameObject go)
+        {
+            connectedObject = go;
+        }
+        public Tile SetColor(Color color)
+        {
+            this.color = color;
+            return this;
+        }
+        public Tile SetParent(Tile parent)
+        {
+            Parent = parent;
+            return this;
         }
     }
 }

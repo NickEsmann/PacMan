@@ -8,44 +8,187 @@ using System.Text;
 
 namespace PacMan
 {
-    class Ghost
+    class Ghost : GameObject
     {
-        public Enemy()
+        private static Dictionary<string, Texture2D> ghostSprites;
+
+        private GhostSpawn spawn;
+
+        private string name;
+        private Tile currentTile;
+        private Color ghostColor;
+
+        private Point basePos;
+        //{
+        //    get
+        //    {
+        //        return new Point(Position.X / (float)Map.GridSize, (float)(Position.Y / Map.GridSize));
+        //    }
+        //}
+
+        private Tile targetTile;
+
+        //private Thread AStar;
+
+        private bool isInSpawn
         {
-            random = new Random();
-        }
-        public override void LoadContent(ContentManager content)
-        {
-            sprites = new Texture2D[4];
-
-            sprites[0] = content.Load<Texture2D>("enemyBlack1");
-            sprites[1] = content.Load<Texture2D>("enemyBlue1");
-            sprites[2] = content.Load<Texture2D>("enemyGreen1");
-            sprites[3] = content.Load<Texture2D>("enemyRed1");
-
-            Respawn();
-        }
-
-        public override void Update(GameTime gametime)
-        {
-            Move(gametime);
-
-            if (position.Y > GameWorld.Screensize.Y)
+            get
             {
-                Respawn();
+                if (spawn.Collision.Contains(Position))
+                    return true;
+                else
+                    return false;
+            }
+        }
+        private float respawnTimer;
+
+
+        public Ghost(string name, int x, int y, GhostSpawn spawn)
+        {
+            this.name = name;
+            this.spawn = spawn;
+            this.X = x;
+            this.Y = y;
+            sprite = ghostSprites[name];
+            color = Color.White;
+            ghostColor = AssignColor();
+            basePos = new Point(x, y);
+            Position = new Vector2(x * Map.GridSize, y * Map.GridSize);
+            NeedPath = true;
+            respawnTimer = 0;
+
+            //AStar = new Thread(Pathfinding);
+
+
+
+            FindCurrentTile();
+            UpdateTarget();
+
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            FindCurrentTile();
+
+
+            if (isInSpawn)
+            {
+                color = Color.Black;//For Testing 
+                if (respawnTimer <= 0)
+                {
+                    GoOutOfSpawn();
+                }
+            }
+            else
+            {
+                color = Color.White;
+
+
+            }
+
+        }
+        private Color AssignColor()
+        {
+            switch (name)
+            {
+                case "Blinky":
+                    return Color.Red;
+                case "Pinky":
+                    return Color.Pink;
+                case "Inky":
+                    return Color.Turquoise;
+                case "Clyde":
+                    return Color.Orange;
+                default:
+                    return Color.White;
+
             }
         }
 
-        private void Respawn()
+        private void FindCurrentTile()
         {
-            int index = random.Next(0, 4);
-            sprite = sprites[index];
+            //AssignTile(GameWorld.map.GridDictionary[basePos]);
 
-            velocity = new Vector2(0, 1);
-            speed = random.Next(10, 100);
-            position.X = random.Next(0, (int)GameWorld.Screensize.X - sprite.Width);
-            position.Y = 0;
+
+
+
+            //foreach (Tile t in GameWorld.map.Grid)
+            //{
+            //    if (t.Collision.Contains(Position))
+            //    {
+            //        AssignTile(t);
+            //        break;
+            //    }
+            //}
+        }
+        private void AssignTile(Tile t)
+        {
+            if (currentTile != null)
+            {
+                if (currentTile != t)
+                {
+                    currentTile.ChangeColor(Color.Black);
+                    currentTile = t;
+                    t.ChangeColor(ghostColor);
+                }
+            }
+            else
+            {
+                currentTile = t;
+                t.ChangeColor(ghostColor);
+            }
+
+
 
         }
+
+        private void UpdateTarget()
+        {
+            targetTile = GameWorld.map.GridDictionary[basePos + new Point(0, 9)];
+            targetTile.ChangeColor(ghostColor);
+        }
+
+        /// <summary>
+        /// For getting out of spawn So we can make spawn unwalkable
+        /// </summary>
+        private void GoOutOfSpawn()
+        {
+            //Temp Code
+            Position = new Vector2((spawn.X + 2) * Map.GridSize, (spawn.Y - 1) * Map.GridSize);
+
+
+        }
+
+
+        private void Pathfinding()
+        {
+
+
+
+        }
+
+        public static void StaticLoadContent(ContentManager content)
+        {
+            ghostSprites = new Dictionary<string, Texture2D>();
+            string name;
+
+            { name = "Blinky"; ghostSprites.Add(name, content.Load<Texture2D>("Entity/Ghosts/" + name)); }
+            { name = "Pinky"; ghostSprites.Add(name, content.Load<Texture2D>("Entity/Ghosts/" + name)); }
+            { name = "Inky"; ghostSprites.Add(name, content.Load<Texture2D>("Entity/Ghosts/" + name)); }
+            { name = "Clyde"; ghostSprites.Add(name, content.Load<Texture2D>("Entity/Ghosts/" + name)); }
+
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+
+        }
+
+        public override void OnCollision(GameObject other)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
