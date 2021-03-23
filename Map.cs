@@ -13,7 +13,7 @@ namespace PacMan
         private int col = 16;
         private int gridSize = 65;
         private List<GameObject> grid; //the list we create for our sprites
-        private List<Vector2> enemyGridPos; //list of vectors that has positions of where the sprite for the enemy road needs to be
+        
         public List<Vector2> EnemyPath { get; set; } = new List<Vector2>(); //This is the list of how the enemy should move
 
 
