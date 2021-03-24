@@ -62,7 +62,6 @@ namespace PacMan
 
 
         //}
-
         public Level()
         {
             // Walls = drawCode;
@@ -352,9 +351,9 @@ namespace PacMan
                     new Wall(18,18)
             });
 
-
             MazeArchive.Add("PacManLevel1from1x1", new List<Wall>()
             {
+
                 new Wall(1,1),
                     new Wall(1,2),
                     new Wall(1,3),
@@ -536,11 +535,17 @@ namespace PacMan
                     new Wall(19,19)
             });
             MazeArchive.Add("2", new List<Wall>()
-
             {
 
             });
 
         }
+
+
+
+
+
+
+
     }
 }
