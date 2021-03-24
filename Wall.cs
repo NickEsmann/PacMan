@@ -152,7 +152,14 @@ namespace PacMan
         private void SetBaseTile(Tile tile)
         {
             BaseTile = tile;
+            
             tile.SetConnectedObject(this);
+            //if (tile.isWalkable)
+            //{
+            //    color = Color.Transparent;
+            //    tile.ChangeColor(Color.Red);
+            //}
+
         }
 
         private void FindNeighbors(List<Wall> wallList)

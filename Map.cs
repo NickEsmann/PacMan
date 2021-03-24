@@ -13,16 +13,16 @@ namespace PacMan
         private int col = 19; //16
         private static int gridSize = 32;//65
         private List<GameObject> grid;
-        private Dictionary<Point, Tile> gridDictionary;
+        private Dictionary<Vector2, Tile> gridDictionary;
 
         public List<GameObject> Grid { get => grid; set => grid = value; }
         public static int GridSize { get => gridSize; private set => gridSize = value; }
-        internal Dictionary<Point, Tile> GridDictionary { get => gridDictionary; private set => gridDictionary = value; }
+        internal Dictionary<Vector2, Tile> GridDictionary { get => gridDictionary; private set => gridDictionary = value; }
 
         public Map()
         {
             Grid = new List<GameObject>();
-            GridDictionary = new Dictionary<Point, Tile>();
+            GridDictionary = new Dictionary<Vector2, Tile>();
             
             mapMaker();
         }
@@ -51,7 +51,7 @@ namespace PacMan
                 {
                     Tile tile = new Tile(x, y, GridSize);
                     Grid.Add(tile);
-                    GridDictionary.Add(new Point(x, y), tile);
+                    GridDictionary.Add(new Vector2(x, y), tile);
                 }
             }
             

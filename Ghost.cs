@@ -18,15 +18,17 @@ namespace PacMan
         private Tile currentTile;
         private Color ghostColor;
 
-        private Point basePos;
-        //{
-        //    get
-        //    {
-        //        return new Point(Position.X / (float)Map.GridSize, (float)(Position.Y / Map.GridSize));
-        //    }
-        //}
+        private Vector2 spawnPos;
 
-        private Tile targetTile;
+        private Vector2 basePos
+        {
+            get
+            {
+                return new Vector2(Position.X / (float) Map.GridSize, (float)(Position.Y / Map.GridSize));
+            }
+}
+
+private Tile targetTile;
 
         private Thread AStar;
 
@@ -50,7 +52,8 @@ namespace PacMan
             sprite = ghostSprites[name];
             color = Color.White;
             ghostColor = AssignColor();
-            basePos = new Point(x, y);
+            //basePos = new Point(x, y);
+            spawnPos = new Vector2(x, y);
             Position = new Vector2(x * Map.GridSize, y * Map.GridSize);
 
             respawnTimer = 0;
@@ -71,15 +74,15 @@ namespace PacMan
 
             if (isInSpawn)
             {
-                color = Color.Black;//For Testing 
+                //color = Color.Black;//For Testing 
                 if (respawnTimer<=0)
                 {
-                    GoOutOfSpawn();
+                    //GoOutOfSpawn();
                 }
             }
             else
             {
-                color = Color.White;
+                //color = Color.White;
 
 
             }
@@ -142,7 +145,7 @@ namespace PacMan
 
         private void UpdateTarget()
         {
-            targetTile = GameWorld.map.GridDictionary[basePos+new Point(0,9)];
+            targetTile = GameWorld.map.GridDictionary[spawnPos+new Vector2(0,9)];
             targetTile.ChangeColor(ghostColor);
         }
 

@@ -19,12 +19,20 @@ namespace PacMan
         private int x;
         private int y;
 
+        public Vector2 basePos
+        {
+            get
+            {
+                return new Vector2(X, Y);
+            }
+        }
+
 
         public GhostSpawn(int x, int y)
         {
             X = x;
             Y = y;
-            //color = Color.White;
+            color = Color.White;
             sprite = ghostspawnSprite;
             Position = new Vector2(x * Map.GridSize-1, y * Map.GridSize-1);
 
@@ -39,9 +47,9 @@ namespace PacMan
         {
             Ghosts = new List<Ghost>();
             Ghosts.Add(new Ghost("Blinky", X, Y,this));
-            //Ghosts.Add(new Ghost("Pinky", X+1, Y,this));
-            //Ghosts.Add(new Ghost("Inky", X+3, Y,this));
-            //Ghosts.Add(new Ghost("Clyde", X+4, Y,this));
+            Ghosts.Add(new Ghost("Pinky", X+1, Y,this));
+            Ghosts.Add(new Ghost("Inky", X+3, Y,this));
+            Ghosts.Add(new Ghost("Clyde", X+4, Y,this));
 
         }
 
