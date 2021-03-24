@@ -102,7 +102,7 @@ namespace PacMan
                 {
                     if (go.NeedPath)
                     {
-                        go.Path = map.FindPath(new Point(2, 1), new Point(go.X, go.Y));
+                        go.Path = map.FindPath(new Point(1, 1), new Point(go.X, go.Y));
                         go.NeedPath = false;
                     }
 
