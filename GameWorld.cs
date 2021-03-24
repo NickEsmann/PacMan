@@ -17,15 +17,13 @@ namespace PacMan
 
         public PointSystem pointsystem;
 
+
+
         private static List<GameObject> gameObjects;
         public static List<GameObject> deleteObjects;
 
         private Texture2D collisionTexture;
-
-        private Color collisionBoxColor = Color.Red;
-
         private Color collisionBoxColor=Color.Transparent;
-
 
 
         public static List<GameObject> GameObjects { get => gameObjects; private set => gameObjects = value; }
@@ -42,14 +40,7 @@ namespace PacMan
 
         protected override void Initialize()
         {
-
-            GhostSpawn.StaticLoadContent(this.Content);
             Wall.LoadSprites(this.Content);
-            Ghost.StaticLoadContent(this.Content);
-            Tile.StaticLoadContent(this.Content);
-
-            Wall.LoadSprites(this.Content);
-
             // TODO: Add your initialization logic here
             map = new Map();
             GameObjects = new List<GameObject>();
@@ -57,21 +48,13 @@ namespace PacMan
             GenerateLevels();
             currentLevel = levels[0];
 
-
-            foreach (GameObject go in currentLevel.LevelObjects)
-            {
-                GameObjects.Add(go);
-            }
-
-            //GameObjects.Add(new Ghost("Blinky", 7, 8));
-            //GameObjects.Add(new Ghost("Pinky", 8, 8));
-            //GameObjects.Add(new Ghost("Inky", 10, 8));
-            //GameObjects.Add(new Ghost("Clyde", 11, 8));
-
             foreach(Wall w in currentLevel.Walls)
             {
                 GameObjects.Add(w);
             }
+
+
+
 
             base.Initialize();
         }
@@ -87,10 +70,11 @@ namespace PacMan
             {
                 go.LoadContent(this.Content);
 
+
+
             }
             map.LoadContent(Content);
-
-            
+           
             // TODO: use this.Content to load your game content here
         }
 
@@ -101,18 +85,9 @@ namespace PacMan
 
             // TODO: Add your update logic here
 
-            foreach (GameObject go in GameObjects)
-            {
-                go.Update(gameTime);
-                if (go is Ghost)
-                {
-                    if (go.NeedPath)
-                    {
-                        go.Path = map.FindPath(new Point(1, 1), new Point(go.X, go.Y));
-                        go.NeedPath = false;
-                    }
-                }
-            }
+
+
+            
 
             base.Update(gameTime);
         }
@@ -142,14 +117,6 @@ namespace PacMan
             {
                 go.Draw(_spriteBatch);
 #if DEBUG
-
-                //DrawCollisionBox(go);
-                /*
-                foreach (GameObject item in map.Grid)
-                {
-                    DrawCollisionBox(item);
-                }*/
-
                 DrawCollisionBox(go);
 #endif
 
@@ -169,12 +136,6 @@ namespace PacMan
 
         private void GenerateLevels()
         {
-            Level.CreateMazeArchive();
-            levels = new List<Level>()
-            {
-                new Level(Level.MazeArchive["PacManLevel1from1x1"],7,8)
-
-            };
             Level.CreateLevelArchive();
             levels = new List<Level>()
             {
@@ -365,7 +326,6 @@ namespace PacMan
             
             
             
-
 
 
         }
