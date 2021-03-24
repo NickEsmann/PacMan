@@ -108,14 +108,14 @@ namespace PacMan
 
         }
 
-        public Wall(int x, int y, int tileSize)
-        {
-            X = x;
-            Y = y;
+        //public Wall(int x, int y, int tileSize)
+        //{
+        //    X = x;
+        //    Y = y;
 
-            Position = new Vector2(x * tileSize, y * tileSize);
-            Base_Wall();
-        }
+        //    Position = new Vector2(x * tileSize, y * tileSize);
+        //    Base_Wall();
+        //}
         public Wall(int x, int y)
         {
             X = x;
