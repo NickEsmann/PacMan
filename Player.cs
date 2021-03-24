@@ -35,34 +35,38 @@
 //            throw new NotImplementedException();
 //        }
 
-//        public void HandleInput()
-//        {
-//            velocity = Vector2.Zero;
-//            KeyboardState keyState = Keyboard.GetState();
+//    public void HandleInput()
+//{
+//    velocity = Vector2.Zero;
+//    KeyboardState keyState = Keyboard.GetState();
 
-//            if (keyState.IsKeyDown(Keys.W))
-//            {
-//                velocity += new Vector2(0, -1);
-//            }
-//            if (keyState.IsKeyDown(Keys.S))
-//            {
-//                velocity += new Vector2(0, 1);
-//            }
-//            if (keyState.IsKeyDown(Keys.A))
-//            {
-//                velocity += new Vector2(-1, 0);
-//            }
-//            if (keyState.IsKeyDown(Keys.D))
-//            {
-//                velocity += new Vector2(1, 0);
-//            }
+//    if (keyState.IsKeyDown(Keys.W))
+//    {
+//        if (!keyState.IsKeyDown(Keys.A) && !keyState.IsKeyDown(Keys.D))
+//            velocity += new Vector2(0, -1);
+//    }
+//    if (keyState.IsKeyDown(Keys.S))
+//    {
+//        if (!keyState.IsKeyDown(Keys.A) && !keyState.IsKeyDown(Keys.D))
+//            velocity += new Vector2(0, 1);
+//    }
+//    if (keyState.IsKeyDown(Keys.A))
+//    {
+//        if (!keyState.IsKeyDown(Keys.W) && !keyState.IsKeyDown(Keys.S))
+//            velocity += new Vector2(-1, 0);
+//    }
+//    if (keyState.IsKeyDown(Keys.D))
+//    {
+//        if (!keyState.IsKeyDown(Keys.W) && !keyState.IsKeyDown(Keys.S))
+//            velocity += new Vector2(1, 0);
+//    }
 
 
-//            if (velocity != Vector2.Zero)
-//            {
-//                velocity.Normalize();
-//            }
-//        }
+//    if (velocity != Vector2.Zero)
+//    {
+//        velocity.Normalize();
+//    }
+//}
 
 //        public override void LoadContent(ContentManager content)
 //        {
