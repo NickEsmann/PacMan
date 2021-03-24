@@ -63,7 +63,7 @@ private Tile targetTile;
 
 
             FindCurrentTile();
-            UpdateTarget();
+            //UpdateTarget();
 
         }
 

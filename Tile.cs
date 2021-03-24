@@ -39,7 +39,7 @@ namespace PacMan
         public Tile(int x, int y, int tileSize)
         {
             Position = new Vector2((x * tileSize)-1, (y * tileSize)-1);
-            color = Color.White;
+            color = Color.Black;
             sprite = tileSprite;
             //scale = new Vector2(1, 1);
             //scale = new Vector2(0.5f, 0.5f);
