@@ -52,6 +52,17 @@ namespace PacMan
                 GameObjects.Add(go);
             }
 
+            //int counterTile = 0;
+            //foreach (Tile t in map.Grid)
+            //    if (!t.isWalkable)
+            //        counterTile += 1;
+
+            //Debug.WriteLine("-----------------------------------------");
+            //Debug.WriteLine($"Tiles that are Unwalkable:{counterTile}\nNumber of walls:{currentLevel.Walls.Count}");
+            //Debug.WriteLine("-----------------------------------------");
+
+
+
 
             //GameObjects.Add(new Ghost("Blinky", 7, 8));
             //GameObjects.Add(new Ghost("Pinky", 8, 8));
@@ -94,11 +105,24 @@ namespace PacMan
                         go.Path = map.FindPath(new Point(2, 1), new Point(go.X, go.Y));
                         go.NeedPath = false;
                     }
+
                 }
             }
-
+            //DebuggingCounter();
+            
             base.Update(gameTime);
         }
+        private void DebuggingCounter()
+        {
+            int counterTile = 0;
+            foreach (Tile t in map.Grid)
+                if (!t.isWalkable)
+                    counterTile += 1;
+            Debug.WriteLine("-----------------------------------------");
+            Debug.WriteLine($"Tiles that are Unwalkable:{counterTile} of {map.Grid.Count}\nNumber of walls:{currentLevel.Walls.Count}");
+            Debug.WriteLine("-----------------------------------------");
+        }
+
 
         private void DrawCollisionBox(GameObject o)
         {

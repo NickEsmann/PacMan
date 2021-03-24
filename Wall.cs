@@ -29,7 +29,7 @@ namespace PacMan
         private Tile BaseTile;
 
 
-
+        private Point basePos;
 
 
         //FOR DEBUGGING
@@ -112,6 +112,7 @@ namespace PacMan
         {
             X = x;
             Y = y;
+            basePos = new Point(x, y);
 
             Position = new Vector2(x * tileSize, y * tileSize);
             Base_Wall();
@@ -120,6 +121,7 @@ namespace PacMan
         {
             X = x;
             Y = y;
+            basePos = new Point(x, y);
             //baseCoordinates = new Point(x, y);
             Position = new Vector2(x * Map.GridSize, y * Map.GridSize); // See Gridsize in Map 
             Base_Wall();
@@ -145,19 +147,25 @@ namespace PacMan
         {
             if (BaseTile == null)
             {
-                foreach (GameObject go in GameWorld.map.Grid)
-                {
-                    if (Collision.Contains(go.Collision.Center) && go is Tile)
-                    {
-                        if (go.X == this.X && go.Y == this.Y)
-                        {
-                            //Debug.WriteLine("Connected");
-                            SetBaseTile((Tile)go);
-                            break;
-                        }
+                //Debug.WriteLine("-------------\n Hello\n-------------");
+                //foreach (GameObject go in GameWorld.map.Grid)
+                //{
+                //    if (Collision.Contains(go.Collision.Center) && go is Tile)
+                //    {
+                //        if (go.X == this.X && go.Y == this.Y)
+                //        {
+                //            //Debug.WriteLine("Connected");
+                //            SetBaseTile((Tile)go);
+                //            break;
+                //        }
 
-                    }
-                }
+                //    }
+                //}
+
+
+                SetBaseTile(GameWorld.map.GridDictionary[basePos-new Point(1,1)]);
+
+
             }
         }
 
@@ -315,7 +323,7 @@ namespace PacMan
             //spriteBatch.DrawString(font, (neighbors.Count).ToString(), Position, textColor);
             //spriteBatch.DrawString(font, wallNum.ToString(), Position, textColor);
             //spriteBatch.DrawString(font, wallNum.ToString(), Collision.Center.ToVector2(), textColor);
-            //spriteBatch.DrawString(font, basePosition, Position+new Vector2(0,font.LineSpacing), textColor);
+            //spriteBatch.DrawString(font, $"{basePos.X},{basePos.Y}", Position+new Vector2(0,font.LineSpacing), textColor);
         }
 
         public override void LoadContent(ContentManager content)

@@ -22,7 +22,11 @@ namespace PacMan
                 if (connectedObject != null)
                 {
                     if (connectedObject is Wall)
+                    {
+                        //color = Color.Red;
                         return false;
+                    }
+                        
                     else
                         return true;
 
