@@ -46,7 +46,9 @@ namespace PacMan
                 go.Draw(spriteBatch);
             }
         }
-
+        /// <summary>
+        /// Makes the playerble area.
+        /// </summary>
         private void mapMaker()
         {
             for (int x = 0; x < row; x++)
@@ -60,7 +62,12 @@ namespace PacMan
             }
 
         }
-
+        /// <summary>
+        /// Astar code.
+        /// </summary>
+        /// <param name="beginPoint"></param>
+        /// <param name="lastPoint"></param>
+        /// <returns></returns>
         public List<Tile> FindPath(Point beginPoint, Point lastPoint)
         {
             Tile startPoint = GridDictionary[beginPoint];
