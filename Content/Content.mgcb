@@ -83,19 +83,14 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Entity/Pacman/Pacman1.png
+/build:CollisionTexture.png
 
-#begin Entity/Pacman/Pacman2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
+#begin Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Entity/Pacman/Pacman2.png
+/processorParam:TextureFormat=Compressed
+/build:Font.spritefont
 
 #begin Font.spritefont
 /importer:FontDescriptionImporter
@@ -237,6 +232,8 @@
 /build:Map/Walls/Alone.png
 
 #begin Map/Walls/Wall0.png
+=======
+#begin Map/Walls/1Con.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -246,9 +243,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Map/Walls/Wall0.png
+/build:Map/Walls/1Con.png
 
-#begin Map/Walls/Wall1.png
+#begin Map/Walls/2ConC.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -258,9 +255,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Map/Walls/Wall1.png
+/build:Map/Walls/2ConC.png
 
-#begin Map/Walls/Wall2.png
+#begin Map/Walls/2ConL.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -270,9 +267,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Map/Walls/Wall2.png
+/build:Map/Walls/2ConL.png
 
-#begin Map/Walls/Wall3.png
+#begin Map/Walls/3Con.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -282,9 +279,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Map/Walls/Wall3.png
+/build:Map/Walls/3Con.png
 
-#begin Map/Walls/Wall4.png
+#begin Map/Walls/4Con.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -294,9 +291,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Map/Walls/Wall4.png
+/build:Map/Walls/4Con.png
 
-#begin Map/Walls/Wall5.png
+#begin Map/Walls/Alone.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -306,7 +303,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Map/Walls/Wall5.png
+/build:Map/Walls/Alone.png
 
 #begin Music/Pacman_Theme_Warping_Synth.mp3
 /importer:Mp3Importer

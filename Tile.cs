@@ -11,15 +11,18 @@ namespace PacMan
     public class Tile : GameObject
     {
 
+
         private GameObject connectedObject;
         public Tile Parent { get; private set; }
 
         private static Texture2D tileSprite;
+
         public bool isWalkable
         {
             get
             {
                 if (connectedObject != null)
+
                 {
                     if (connectedObject is Wall)
                         return false;
@@ -33,7 +36,6 @@ namespace PacMan
                 }
             }
         }
-
 
 
 
@@ -68,6 +70,7 @@ namespace PacMan
         public static void StaticLoadContent(ContentManager content)
         {
             tileSprite = content.Load<Texture2D>("Map/BlankTile");
+
         }
 
         public override void LoadContent(ContentManager content)
@@ -104,5 +107,6 @@ namespace PacMan
             Parent = parent;
             return this;
         }
+
     }
 }

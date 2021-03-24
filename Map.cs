@@ -23,11 +23,12 @@ namespace PacMan
         public static int GridSize { get => gridSize; private set => gridSize = value; }
         internal Dictionary<Point, Tile> GridDictionary { get => gridDictionary; private set => gridDictionary = value; }
 
+        public List<GameObject> Grid { get => grid; set => grid = value; }
+
         public Map()
         {
             Grid = new List<Tile>();
             GridDictionary = new Dictionary<Point, Tile>();
-
             mapMaker();
         }
 
@@ -181,6 +182,5 @@ namespace PacMan
             Path.Reverse();
             return Path;
         }
-
     }
 }
