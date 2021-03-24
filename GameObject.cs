@@ -13,12 +13,25 @@ namespace PacMan
         private Vector2 position;
         protected Color color;
         protected Vector2 origin;
+
+        protected Vector2 scale = new Vector2((float)Map.GridSize / 128, (float)Map.GridSize / 128);
+        protected float rotation = 0f;
+
+        public bool NeedPath = false;
+        public List<Tile> Path;
+
+        //protected int offsetX;
+        //protected int offsetY;
+        protected Vector2 offset;
+        public int X { get; set; }
+        public int Y { get; set; }
+
         protected Vector2 scale;
         protected float rotation=0f;
         //protected int offsetX;
         //protected int offsetY;
         protected Vector2 offset;
-        
+
         protected int layer = 1;
 
 
@@ -46,8 +59,13 @@ namespace PacMan
                 return new Rectangle(
                        (int)Position.X + (int)offset.X,
                        (int)Position.Y + (int)offset.Y,
+
+                       (int)(sprite.Width * scale.X),
+                       (int)(sprite.Height * scale.Y)
+
                        (int)sprite.Width,
                        (int)sprite.Height 
+
                    );
             }
         }
