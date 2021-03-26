@@ -63,7 +63,7 @@ namespace PacMan
 
         }
         /// <summary>
-        /// Astar code.
+        /// Astar main code.
         /// </summary>
         /// <param name="beginPoint"></param>
         /// <param name="lastPoint"></param>

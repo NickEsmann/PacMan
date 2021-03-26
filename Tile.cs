@@ -54,6 +54,7 @@ namespace PacMan
             //scale = new Vector2(0.5f, 0.5f);
 
         }
+        
         /// <summary>
         /// Calculation of F value for Astar
         /// </summary>
@@ -105,6 +106,7 @@ namespace PacMan
             this.color = color;
             return this;
         }
+        
         /// <summary>
         /// 
         /// </summary>
